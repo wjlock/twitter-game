@@ -15,24 +15,37 @@ const GameRounds = () => {
     const [randomTweet, setRandomTweet] = useState('This is a random tweet')
     const [gameRound, setGameRound] = useState(1)
     const [points, setPoints] = useState(0)
-    const [correctAnswer, setCorrectAnswer] = useState('')
+    const [correctAnswer, setCorrectAnswer] = useState('Answer 1')
     const [userAnswer, setUserAnswer] = useState('')
-    const createAnswers = answers.map((answer) => {
-        return <li>{answer}</li>
-    })
     const handleUserAnswer = (e) => {
         setUserAnswer(e.target.value)
+        console.log(userAnswer)
     }
+    const createAnswers = answers.map((answer) => {
+        return <button value={answer} onClick={handleUserAnswer}>{answer}</button>
+    })
+    const handleSubmit = () => {
+        if (userAnswer === correctAnswer) {
+            setPoints(points +100)
+            setGameRound(gameRound +1)
+        } else {
+            setGameRound(gameRound +1)
+        }
+    }
+
     return (
         
 
         <div>
             <h1>Points: {points}</h1>
             <h1>Round {gameRound}</h1>
-            <h2>{randomTweet}</h2>
+            <h2>{randomTweet}</h2>  
             <ul>
                 {createAnswers} 
             </ul>
+            <div>
+                <button onClick={handleSubmit}>Submit</button>
+            </div>
         </div>
     )
 }
