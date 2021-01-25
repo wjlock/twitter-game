@@ -6,21 +6,34 @@ var client = new Twitter({
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
     bearer_token: process.env.TWITTER_BEARER_TOKEN
   });
+  
+
 
 const GameRounds = () => {
     // Set State
-    const [answers, setAnswers] = useState([])
-    const [randomTweet, setRandomTweet] = useState('')
-
-    useEffect(() => {
-        client.get('search/tweets.json?q=sports&result_type=popular', function(error, tweets, response) {
-            if(error) throw error;
-            console.log(response);  // Raw response object.
-          });
-
+    const [answers, setAnswers] = useState(["Answer 1", "Answer 2", "Answer 3", "Answer 4"])
+    const [randomTweet, setRandomTweet] = useState('This is a random tweet')
+    const [gameRound, setGameRound] = useState(1)
+    const [points, setPoints] = useState(0)
+    const [correctAnswer, setCorrectAnswer] = useState('')
+    const [userAnswer, setUserAnswer] = useState('')
+    const createAnswers = answers.map((answer) => {
+        return <li>{answer}</li>
     })
+    const handleUserAnswer = (e) => {
+        setUserAnswer(e.target.value)
+    }
     return (
-        <h1>Hello</h1>
+        
+
+        <div>
+            <h1>Points: {points}</h1>
+            <h1>Round {gameRound}</h1>
+            <h2>{randomTweet}</h2>
+            <ul>
+                {createAnswers} 
+            </ul>
+        </div>
     )
 }
 
