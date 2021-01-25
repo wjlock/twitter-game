@@ -12,6 +12,7 @@ import Profile from './components/Profile';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Landing from './components/Landing';
+import GameRounds from './components/GameRounds';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = localStorage.getItem('jwtToken');
@@ -62,6 +63,7 @@ function App() {
         <Switch>
           <Route path='/signup' component={ Signup } />
           <Route path='/home' component={ Landing } />
+          <Route path='/gameRounds' component={GameRounds} />
           <Route 
             path='/login' 
             render={ (props) => <Login {...props} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} user={currentUser}/>} />
