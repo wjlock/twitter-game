@@ -16,7 +16,7 @@ const GameRounds = () => {
     const [randomTweet, setRandomTweet] = useState('')
     const [gameRound, setGameRound] = useState(1)
     const [points, setPoints] = useState(0)
-    const [correctAnswer, setCorrectAnswer] = useState('Answer 1')
+    const [correctAnswer, setCorrectAnswer] = useState("Answer 1")
     const [userAnswer, setUserAnswer] = useState('')
     const { data, error } = useSWR("http://localhost:8000/api/calls/newtweet", fetcher)
     console.log(data)
@@ -30,20 +30,32 @@ const GameRounds = () => {
     const createAnswers = answers.map((answer) => {
         return <button value={answer} onClick={handleUserAnswer}>{answer}</button>
     })
+    function displayScoreScreen() {
+        if (gameRound === 10) {
+            return (
+            <div>
+                <h3>Congrats! You have completed 10 rounds of GuessThatHandle.</h3>
+                <p>Your total score is <em>{points}</em></p>
+                <button>Play Again!</button>
+                <button>Submit to the highscores!</button>
+            </div>
+            )
+        }
+    }
+
+    // set the answers array to [correctAnswer, ]
+
+
+
     function generateTweet() {
         const randomNumber = getRndInteger(0, 10)
         const tweet = data.statuses[randomNumber].full_text
         setRandomTweet(tweet)
         setCorrectAnswer(data.statuses[randomNumber].user.name)
-        answers.push(correctAnswer)
-        console.log(answers)
+        setAnswers([correctAnswer])
+        console.log(answers)    
         console.log(correctAnswer)
     }
-
-    // useEffect(() => {
-    //    const firstTweet = data.statuses[getRndInteger(0, 10)].full_text
-    //    setRandomTweet(firstTweet)
-    // })
 
     // useEffect(async () => {
     //     const newTweets = await axios.get("http://localhost:8000/api/calls/newtweet")
@@ -97,6 +109,9 @@ const GameRounds = () => {
             </ul>
             <div>
                 <button onClick={handleSubmit}>Submit</button>
+            </div>
+            <div>
+                {displayScoreScreen()}
             </div>
         </div>
     )
