@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-var Twitter = require('twitter');
-var client = new Twitter({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-    bearer_token: process.env.TWITTER_BEARER_TOKEN
-  });
+// var Twitter = require('twitter');
+// var client = new Twitter({
+//     consumer_key: process.env.TWITTER_CONSUMER_KEY,
+//     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+//     bearer_token: process.env.TWITTER_BEARER_TOKEN
+//   });
   
 
 
@@ -23,14 +23,25 @@ const GameRounds = () => {
     }
     const createAnswers = answers.map((answer) => {
         return <button value={answer} onClick={handleUserAnswer}>{answer}</button>
-    })
-    const handleSubmit = () => {
+    }) 
+
+    const handleSubmit = async (e) => {
+        const setNewTweet = await axios
+            .get("http://localhost:8000/api/calls/newtweet")
+            .then(console.log(setNewTweet))
+        //check if they have the right answer
+        //add pints if the answer is correct
+        // increase the round number (everytime)
+        // Set a new random tweet
+        // set the new correct answer
+        // set the remainning random answers
+        // check id round number is 10, if so end the game
         if (userAnswer === correctAnswer) {
             setPoints(points +100)
             setGameRound(gameRound +1)
-        } else {
-            setGameRound(gameRound +1)
-        }
+            console.log(setNewTweet)
+            
+        } 
     }
 
     return (
