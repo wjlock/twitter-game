@@ -4,7 +4,7 @@ import useSWR from "swr"
 import { useParams } from "react-router";
 import { Button, ButtonGroup, Center, VStack, Text } from "@chakra-ui/react"
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
-const gamemode = 'Rounds'
+const gamemode = 'Unlimited'
 const userid = "Johnny Smith"
 
 
@@ -19,6 +19,7 @@ const GameRounds = () => {
     const [correctAnswer, setCorrectAnswer] = useState("Answer 1")
     const [userAnswer, setUserAnswer] = useState('')
     const [gameStatus, setGameStatus] = useState(true)
+    const [incorrectGuesses, setIncorrectGuesses] = useState(0)
     const { data, error, revalidate } = useSWR(`http://localhost:8000/api/calls/newtweet?q=${query}`, fetcher, {
         revalidateOnFocus: false
 
@@ -47,7 +48,7 @@ const GameRounds = () => {
         if (gameStatus === false) {
             return (
             <div>
-                <h3>Congrats! You have completed 10 rounds of GuessThatHandle.</h3>
+                <h3>Congrats! You have completed {gameRound} rounds of GuessThatHandle.</h3>
                 <p>Your total score is <em>{points}</em></p>
                 <button>Play Again!</button>
                 <Button colorScheme="teal" onClick={handleScoreSubmit}>Play!</Button>
@@ -65,18 +66,15 @@ const GameRounds = () => {
         // set the new correct answer
         // set the remainning random answers
         // check id round number is 10, if so end the game
-        if (userAnswer.answer && gameRound === 10) {
-            setPoints(points +100)
-            setGameStatus(false)
-        } else if (!userAnswer.answer && gameRound === 10){
-            setGameStatus(false)
-
-        } else if (userAnswer.answer && gameRound < 10) {
+        if (userAnswer.answer) {
             setPoints(points +100)
             setGameRound(gameRound +1)
-            // generateTweet()
-        } else if (!userAnswer.answer && gameRound < 10) {
+        } else if (!userAnswer.answer && incorrectGuesses === 2){
+            setIncorrectGuesses(incorrectGuesses + 1)
+            setGameStatus(false)
+        } else if (!userAnswer.answer && incorrectGuesses < 2) {
             setGameRound(gameRound +1)
+            setIncorrectGuesses(incorrectGuesses +1)
             // generateTweet()
             // display new tweet
             // display new answers
@@ -95,6 +93,7 @@ const GameRounds = () => {
             <VStack>
                 <Text p={1} borderRadius="5px" border="2px" borderColor="grey.200" fontSize='3xl' fontFamily=" 'Righteous', cursive">Points: {points}</Text>
                 <Text p={1} borderRadius="5px" border="2px" borderColor="grey.200" fontSize='3xl' fontFamily=" 'Righteous', cursive">Round {gameRound}</Text>
+                <Text p={1} borderRadius="5px" border="2px" borderColor="grey.200" fontSize='3xl' fontFamily=" 'Righteous', cursive">Incorrect Guesses {incorrectGuesses}/3</Text>
                 <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">{data?.tweet}</Text>  
                 <ButtonGroup>
                     {createAnswers} 
