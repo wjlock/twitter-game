@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Box, Button, HStack } from '@chakra-ui/react'
+import { Input, Box, Button, HStack, Select } from '@chakra-ui/react'
 import { useHistory } from 'react-router-dom'
 
 
 const Landing = () => {
     const [query, setQuery ] = useState("")
+    const [mode, setMode] = useState("")
     const { push } = useHistory();
 
     const handlePlay = () => {
-        push(`/gameRounds/${query}`)
+        push(`/${mode}/${query}`)
     }
 
     return (
@@ -21,6 +22,10 @@ const Landing = () => {
 
             <HStack>
             <Input color="black" placeholder="Enter your topic here" size="lg" value={query} onChange={e => setQuery(e.target.value)}/>
+            <Select placeholder="Select Gamemode" onChange={e => setMode(e.target.value)}>
+                <option value="gameRounds">Rounds</option>
+                <option value="gameUnlimited">Unlimited</option>
+            </Select>
             <Button colorScheme="teal" onClick={handlePlay}>Play!</Button>
             </HStack>
         </div>

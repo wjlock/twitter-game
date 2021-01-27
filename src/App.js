@@ -13,6 +13,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Landing from './components/Landing';
 import GameRounds from './components/GameRounds';
+import GameUnlimited from './components/GameUnlimited'
 import HighScores from './components/HighScores'
 import { ChakraProvider } from "@chakra-ui/react"
 
@@ -60,15 +61,18 @@ function App() {
 
   return (
     <ChakraProvider>
-    <div className="App">
+    <div className="App" >
       <Navbar handleLogout={handleLogout} isAuth={isAuthenticated} />
       <div className="container mt-5">
         <Switch>
           <Route path='/signup' component={ Signup } />
-          <Route path='highscores' component={ HighScores } />
+          <Route path='/highscores' component={ HighScores } />
           <Route path='/' exact component={ Landing } />
           <Route path='/gameRounds/:query'>
           <GameRounds/>
+          </Route>
+          <Route path='/gameUnlimited/:query'>
+          <GameUnlimited/>
           </Route>
           <Route 
             path='/login' 

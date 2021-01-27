@@ -35,7 +35,7 @@ const Signup = () => {
         if (password === confirmPassword && password.length >= 8) {
             const newUser = { name, email, password };
             
-            axios.post(`${REACT_APP_SERVER_URL}/api/users/register`, newUser)
+            axios.post('http://localhost:8000/api/users/register', newUser)
             .then(response => {
                 console.log(response);
                 setRedirect(true);

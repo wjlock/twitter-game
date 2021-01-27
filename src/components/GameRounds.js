@@ -4,6 +4,8 @@ import useSWR from "swr"
 import { useParams } from "react-router";
 import { Button, ButtonGroup, Center, VStack, Text } from "@chakra-ui/react"
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
+const gamemode = 'Rounds'
+const userid = "Johnny Smith"
 
 
 const GameRounds = () => {
@@ -27,6 +29,11 @@ const GameRounds = () => {
     const handleUserAnswer = (user) => () => {
         setUserAnswer(user)
     }
+    const handleScoreSubmit = (e) => {
+        e.preventDefault()
+        const newHighscore = { userid, points, gamemode }
+        axios.post('http://localhost:8000/api/highscores/newhighscore', newHighscore)
+    }
 
     const getRndInteger = (min, max) => {
         return Math.floor(Math.random() * (max - min) ) + min;
@@ -43,7 +50,7 @@ const GameRounds = () => {
                 <h3>Congrats! You have completed 10 rounds of GuessThatHandle.</h3>
                 <p>Your total score is <em>{points}</em></p>
                 <button>Play Again!</button>
-                <button>Submit to the highscores!</button>
+                <Button colorScheme="teal" onClick={handleScoreSubmit}>Play!</Button>
             </div>
             )
         }
@@ -61,7 +68,6 @@ const GameRounds = () => {
         if (userAnswer.answer && gameRound === 10) {
             setPoints(points +100)
             setGameStatus(false)
-            alert("Game Over")
         } else if (!userAnswer.answer && gameRound === 10){
             setGameStatus(false)
 
@@ -87,8 +93,8 @@ const GameRounds = () => {
 
         <Center>
             <VStack>
-                <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">Points: {points}</Text>
-                <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">Round {gameRound}</Text>
+                <Text p={1} borderRadius="5px" border="2px" borderColor="grey.200" fontSize='3xl' fontFamily=" 'Righteous', cursive">Points: {points}</Text>
+                <Text p={1} borderRadius="5px" border="2px" borderColor="grey.200" fontSize='3xl' fontFamily=" 'Righteous', cursive">Round {gameRound}</Text>
                 <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">{data?.tweet}</Text>  
                 <ButtonGroup>
                     {createAnswers} 
