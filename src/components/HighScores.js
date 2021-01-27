@@ -45,7 +45,7 @@ const HighScores = () => {
                 </Tr>
             )
         }
-
+        
     }
 
 

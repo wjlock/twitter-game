@@ -21,7 +21,7 @@ const Landing = () => {
             </div>
 
             <HStack>
-            <Input color="black" placeholder="Enter your topic here" size="lg" value={query} onChange={e => setQuery(e.target.value)}/>
+            <Input colorScheme="teal" placeholder="Enter your topic here" size="lg" value={query} onChange={e => setQuery(e.target.value)}/>
             <Select placeholder="Select Gamemode" onChange={e => setMode(e.target.value)}>
                 <option value="gameRounds">Rounds</option>
                 <option value="gameUnlimited">Unlimited</option>

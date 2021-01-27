@@ -15,6 +15,7 @@ import Landing from './components/Landing';
 import GameRounds from './components/GameRounds';
 import GameUnlimited from './components/GameUnlimited'
 import HighScores from './components/HighScores'
+import Instructions from './components/Instructions'
 import { ChakraProvider } from "@chakra-ui/react"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -67,6 +68,7 @@ function App() {
         <Switch>
           <Route path='/signup' component={ Signup } />
           <Route path='/highscores' component={ HighScores } />
+          <Route path='/instructions' component={ Instructions } />
           <Route path='/' exact component={ Landing } />
           <Route path='/gameRounds/:query'>
           <GameRounds/>
