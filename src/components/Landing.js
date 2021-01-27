@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Box, Button, HStack, Select } from '@chakra-ui/react'
+import { Input, Box, Button, HStack, Select, Center, Text } from '@chakra-ui/react'
 import { useHistory } from 'react-router-dom'
 
 
@@ -28,8 +28,10 @@ const Landing = () => {
             </Select>
             <Button colorScheme="teal" onClick={handlePlay}>Play!</Button>
             </HStack>
+            <Center>
+                <Text mt={160} fontSize="3xl">“If Paul Revere had been a modern-day citizen, he wouldn't have ridden down Main Street. He would have tweeted." — @AlecJRoss</Text>
+            </Center>
         </div>
     )
 }
-
 export default Landing;
