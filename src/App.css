@@ -21,7 +21,10 @@ img {
 .random-tweet {
   text-align: center;
   margin-top: 50px;
-  border: 5px solid lightblue;
+  border: 5px solid slategrey;
+  font-family: 'Righteous', cursive;
+  font-size: 200px;
+
 }
 .landing-buttons {
   margin-top: 300px;
@@ -32,4 +35,11 @@ img {
   width:60px;
   height:auto;
   display:inline-block;
+}
+h3 {
+  font-size: 150px;
+}
+body {
+  background-image: url("https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/OTB_Company_Blue.png.img.fullhd.medium.png");
+  background-repeat: none;
 }

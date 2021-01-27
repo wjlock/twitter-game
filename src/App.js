@@ -62,7 +62,7 @@ function App() {
       <div className="container mt-5">
         <Switch>
           <Route path='/signup' component={ Signup } />
-          <Route path='/home' component={ Landing } />
+          <Route path='/' component={ Landing } />
           <Route path='/gameRounds' component={GameRounds} />
           <Route 
             path='/login' 
