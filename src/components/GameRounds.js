@@ -46,12 +46,16 @@ const GameRounds = () => {
     const displayScoreScreen = () => {
         if (gameStatus === false) {
             return (
-            <div>
-                <h3>Congrats! You have completed 10 rounds of GuessThatHandle.</h3>
-                <p>Your total score is <em>{points}</em></p>
-                <button>Play Again!</button>
-                <Button colorScheme="teal" onClick={handleScoreSubmit}>Play!</Button>
-            </div>
+            <Center border="2px" borderRadius="5px">
+                <VStack>
+                    <Text m={15}>Congrats! You have completed 10 rounds of GuessThatHandle.</Text>
+                    <p>Your total score is <em>{points}</em></p>
+                    <ButtonGroup>
+                        <Button colorScheme="teal" onClick={handleScoreSubmit}>Play Again!</Button>
+                        <Button colorScheme="teal" onClick={handleScoreSubmit}>Send to Highscores</Button>
+                    </ButtonGroup>
+                </VStack>
+            </Center>
             )
         }
     }
@@ -93,6 +97,7 @@ const GameRounds = () => {
 
         <Center>
             <VStack>
+                <Text p={1} fontSize="2x1" fontFamily=" 'Righteous', cursive">Game Mode: Rounds</Text>
                 <Text p={1} borderRadius="5px" border="2px" borderColor="grey.200" fontSize='3xl' fontFamily=" 'Righteous', cursive">Points: {points}</Text>
                 <Text p={1} borderRadius="5px" border="2px" borderColor="grey.200" fontSize='3xl' fontFamily=" 'Righteous', cursive">Round {gameRound}</Text>
                 <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">{data?.tweet}</Text>  
