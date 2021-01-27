@@ -30,6 +30,12 @@ const GameRounds = () => {
     const handleUserAnswer = (user) => () => {
         setUserAnswer(user)
     }
+    const resetGame = () => {
+        setGameStatus(true)
+        setGameRound(1)
+        setPoints(0)
+        setIncorrectGuesses(0)
+    }
     const handleScoreSubmit = (e) => {
         e.preventDefault()
         const newHighscore = { userid, points, gamemode }
@@ -52,7 +58,7 @@ const GameRounds = () => {
                         <Text m={15}>Congrats! You have completed {gameRound} rounds of GuessThatHandle.</Text>
                         <p>Your total score is <em>{points}</em></p>
                         <ButtonGroup>
-                            <Button colorScheme="teal" onClick={handleScoreSubmit}>Play Again!</Button>
+                            <Button colorScheme="teal" onClick={resetGame}>Play Again!</Button>
                             <Button colorScheme="teal" onClick={handleScoreSubmit}>Send to Highscores</Button>
                         </ButtonGroup>
                     </VStack>

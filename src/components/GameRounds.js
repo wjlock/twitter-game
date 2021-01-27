@@ -35,6 +35,12 @@ const GameRounds = () => {
         axios.post('http://localhost:8000/api/highscores/newhighscore', newHighscore)
     }
 
+    const resetGame = () => {
+        setGameStatus(true)
+        setGameRound(1)
+        setPoints(0)
+    }
+
     const getRndInteger = (min, max) => {
         return Math.floor(Math.random() * (max - min) ) + min;
     }
@@ -51,7 +57,7 @@ const GameRounds = () => {
                     <Text m={15}>Congrats! You have completed 10 rounds of GuessThatHandle.</Text>
                     <p>Your total score is <em>{points}</em></p>
                     <ButtonGroup>
-                        <Button colorScheme="teal" onClick={handleScoreSubmit}>Play Again!</Button>
+                        <Button colorScheme="teal" onClick={resetGame}>Play Again!</Button>
                         <Button colorScheme="teal" onClick={handleScoreSubmit}>Send to Highscores</Button>
                     </ButtonGroup>
                 </VStack>
