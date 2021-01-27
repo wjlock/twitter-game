@@ -13,6 +13,8 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Landing from './components/Landing';
 import GameRounds from './components/GameRounds';
+import HighScores from './components/HighScores'
+import { ChakraProvider } from "@chakra-ui/react"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const user = localStorage.getItem('jwtToken');
@@ -57,13 +59,17 @@ function App() {
   }
 
   return (
+    <ChakraProvider>
     <div className="App">
       <Navbar handleLogout={handleLogout} isAuth={isAuthenticated} />
       <div className="container mt-5">
         <Switch>
           <Route path='/signup' component={ Signup } />
-          <Route path='/' component={ Landing } />
-          <Route path='/gameRounds' component={GameRounds} />
+          <Route path='highscores' component={ HighScores } />
+          <Route path='/' exact component={ Landing } />
+          <Route path='/gameRounds/:query'>
+          <GameRounds/>
+          </Route>
           <Route 
             path='/login' 
             render={ (props) => <Login {...props} nowCurrentUser={nowCurrentUser} setIsAuthenticated={setIsAuthenticated} user={currentUser}/>} />
@@ -72,6 +78,7 @@ function App() {
       </div>
       <Footer />
     </div>
+    </ChakraProvider>
   );
 }
 

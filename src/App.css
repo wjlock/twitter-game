@@ -5,13 +5,19 @@ html {
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
 }
+
+.chakra-ui-light {
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f223ce72-c7cd-46e7-915b-40d3af21f6b7/d5gityo-321176dd-a6d4-4546-aa65-cc41d33562b7.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvZjIyM2NlNzItYzdjZC00NmU3LTkxNWItNDBkM2FmMjFmNmI3XC9kNWdpdHlvLTMyMTE3NmRkLWE2ZDQtNDU0Ni1hYTY1LWNjNDFkMzM1NjJiNy5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.8kc3cErcA2AGqLUnTQO2mJD7ZOO5AjsHAGezow7f4as");
+}
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 60px; /* Set the fixed height of the footer here */
   line-height: 60px; /* Vertically center the text there */
-  background-color: aliceblue;
+  background-color: white;
+  font-family: 'Righteous', cursive;
 }
 img {
   width: 75px;
@@ -22,6 +28,7 @@ img {
   text-align: center;
   margin-top: 50px;
   border: 5px solid slategrey;
+  border-radius: 10px;
   font-family: 'Righteous', cursive;
   font-size: 200px;
 
@@ -39,7 +46,21 @@ img {
 h3 {
   font-size: 150px;
 }
-body {
-  background-image: url("https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/OTB_Company_Blue.png.img.fullhd.medium.png");
-  background-repeat: none;
+#root {
+  height: 100%;
+  min-height: 100vh;
+}
+nav {
+  font-family: 'Righteous', cursive;
+}
+.random-tweet {
+  font-size: 150px;
+
+}
+h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Righteous', cursive;
+  font-size: 30px;
 }

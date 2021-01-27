@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import useSWR from "swr"
-// var Twitter = require('twitter');
-// var client = new Twitter({
-//     consumer_key: process.env.TWITTER_CONSUMER_KEY,
-//     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-//     bearer_token: process.env.TWITTER_BEARER_TOKEN
-//   });
+import { useParams } from "react-router";
+import { Button, ButtonGroup, Center, VStack, Text } from "@chakra-ui/react"
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 
 const GameRounds = () => {
     // Set State
+    const { query } = useParams();
+
     const [answers, setAnswers] = useState([])
     const [randomTweet, setRandomTweet] = useState('')
     const [gameRound, setGameRound] = useState(1)
@@ -19,7 +17,7 @@ const GameRounds = () => {
     const [correctAnswer, setCorrectAnswer] = useState("Answer 1")
     const [userAnswer, setUserAnswer] = useState('')
     const [gameStatus, setGameStatus] = useState(true)
-    const { data, error, revalidate } = useSWR("http://localhost:8000/api/calls/newtweet", fetcher, {
+    const { data, error, revalidate } = useSWR(`http://localhost:8000/api/calls/newtweet?q=${query}`, fetcher, {
         revalidateOnFocus: false
 
     })
@@ -35,7 +33,7 @@ const GameRounds = () => {
     }
 
     const createAnswers = data?.users?.map((user) => (
-         <button  onClick={handleUserAnswer(user)}>{user.name}</button>
+         <Button p={1} colorScheme='blue' onClick={handleUserAnswer(user)}>{user.name}</Button>
     ))
 
     const displayScoreScreen = () => {
@@ -87,20 +85,22 @@ const GameRounds = () => {
     }
     return (
 
-        <div>
-            <h1>Points: {points}</h1>
-            <h1>Round {gameRound}</h1>
-            <h2>{data?.tweet}</h2>  
-            <ul>
-                {createAnswers} 
-            </ul>
-            <div>
-                <button onClick={handleSubmit}>Submit</button>  
-            </div>
-            <div>
-                {displayScoreScreen()}
-            </div>
-        </div>
+        <Center>
+            <VStack>
+                <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">Points: {points}</Text>
+                <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">Round {gameRound}</Text>
+                <Text fontSize='3xl' fontFamily=" 'Righteous', cursive">{data?.tweet}</Text>  
+                <ButtonGroup>
+                    {createAnswers} 
+                </ButtonGroup>
+                <div>
+                    <Button onClick={handleSubmit}>Submit</Button>  
+                </div>
+                <div>
+                    {displayScoreScreen()}
+                </div>
+            </VStack>
+        </Center>
     )
 }
 
