@@ -1,69 +1,58 @@
 import React, { useState, useEffect } from "react";
+import useSWR from "swr";
 import {
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-  } from "@chakra-ui/react"
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+} from "@chakra-ui/react";
+const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-const sampleData = [
-    {
-        userid: "Billy Smith",
-        points: 600,
-        gamemode: "Rounds"
-    },
-    {
-        userid: "Henry",
-        points: 800,
-        gamemode: "Rounds"
-    },
-    {
-        userid: "Roger Jacobson",
-        points: 900,
-        gamemode: "Rounds"
-    }
-]
-
-let sortedData = sampleData.sort(function (p1, p2) {
-    return p2.points - p1.points;
-  });
-console.log(sortedData)
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const HighScores = () => {
-
-    function tableDataRender(array) {
-        for (let i = 0; i < array.length; i++) {
-            return (
-                <Tr>
-                    <Td>{array[i].userid}</Td>
-                    <Td>{array[i].points}</Td>
-                    <Td>{array[i].gamemode}</Td>
-                </Tr>
-            )
-        }
-        
+  const { data, error } = useSWR(
+    `${REACT_APP_SERVER_URL}/api/highscores/allhighscores`,
+    fetcher,
+    {
+      revalidateOnFocus: false,
     }
+  );
 
+  const [sortedData, setSortedData] = useState([]);
 
+  useEffect(() => {
+    if (!data) return;
+    const sortedData = data?.sort((p1, p2) => p2.points - p1.points);
+    console.log(sortedData);
+    setSortedData(sortedData);
+  }, [data]);
+
+  const tableRender = sortedData.map((array) => {
     return (
-        <Table variant="simple">
-            <Thead>
-                <Tr>
-                    <Th>Username</Th>
-                    <Th>Points</Th>
-                    <Th>Gamemode</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {tableDataRender(sortedData)}
-            </Tbody>
-        </Table>
-        
+      <Tr>
+        <Td>{array.userid}</Td>
+        <Td>{array.points}</Td>
+        <Td>{array.gamemode}</Td>
+      </Tr>
+    );
+  });
 
-      )
-}
-export default HighScores
+  return (
+    <Table variant="simple">
+      <Thead>
+        <Tr>
+          <Th>Username</Th>
+          <Th>Points</Th>
+          <Th>Gamemode</Th>
+        </Tr>
+      </Thead>
+      <Tbody>{tableRender}</Tbody>
+    </Table>
+  );
+};
+export default HighScores;

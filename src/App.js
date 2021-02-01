@@ -70,7 +70,7 @@ function App() {
           <Route path='/highscores' component={ HighScores } />
           <Route path='/instructions' component={ Instructions } />
           <Route path='/' exact component={ Landing } />
-          <Route path='/gameRounds/:query'>
+          <Route path='/gameRounds/:query' user={currentUser}>
           <GameRounds/>
           </Route>
           <Route path='/gameUnlimited/:query'>
